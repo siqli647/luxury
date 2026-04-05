@@ -29,7 +29,7 @@ const reports = [
 </script>
 
 <template>
-  <div class="flex h-screen overflow-hidden bg-white">
+  <div class="flex h-screen overflow-hidden bg-[#FAFAFA]">
     <SASidebar />
 
     <main class="flex-1 overflow-y-auto">

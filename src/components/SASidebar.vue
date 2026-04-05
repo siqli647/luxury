@@ -71,5 +71,13 @@ function isActive(path) {
         做题
       </router-link>
     </nav>
+
+    <div class="px-4 pb-4">
+      <router-link to="/trainer"
+        class="flex items-center gap-1.5 text-[12px] text-[#A1A1AA] hover:text-[#71717A] transition-colors">
+        <span>→</span>
+        <span>切换至管理端</span>
+      </router-link>
+    </div>
   </aside>
 </template>

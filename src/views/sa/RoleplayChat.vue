@@ -50,7 +50,7 @@ function handleKeydown(e) {
 </script>
 
 <template>
-  <div class="flex h-screen overflow-hidden bg-white">
+  <div class="flex h-screen overflow-hidden bg-[#FAFAFA]">
     <SASidebar />
 
     <div class="flex-1 flex flex-col overflow-hidden p-5 gap-4">

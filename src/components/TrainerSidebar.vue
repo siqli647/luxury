@@ -42,5 +42,13 @@ function isActive(path) {
         培训分析
       </router-link>
     </nav>
+
+    <div class="px-4 pb-4">
+      <router-link to="/"
+        class="flex items-center gap-1.5 text-[12px] text-[#64748b] hover:text-[#94a3b8] transition-colors">
+        <span>←</span>
+        <span>切换至学员端</span>
+      </router-link>
+    </div>
   </aside>
 </template>
