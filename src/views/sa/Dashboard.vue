@@ -8,12 +8,12 @@ const router = useRouter()
 
 const skills = [
   { name: '产品知识', score: 4, max: 5 },
-  { name: '成品推进', score: 4, max: 5 },
-  { name: '信任建立', score: 4, max: 5 },
-  { name: '情绪感知', score: 4, max: 5 },
-  { name: '异议处理', score: 4, max: 5 },
-  { name: '沟通表达', score: 4, max: 5 },
   { name: '需求挖掘', score: 4, max: 5 },
+  { name: '沟通表达', score: 4, max: 5 },
+  { name: '异议处理', score: 4, max: 5 },
+  { name: '情绪感知', score: 4, max: 5 },
+  { name: '信任建立', score: 4, max: 5 },
+  { name: '成交推进', score: 4, max: 5 },
 ]
 
 const courses = [
@@ -62,7 +62,7 @@ const reports = [
         <!-- Large combined card -->
         <div class="bg-white rounded-2xl border border-[#E4E4E7] p-5">
           <!-- Top: 能力评估 -->
-          <div class="mb-6">
+          <div class="mb-3">
             <div class="flex items-center justify-between mb-4">
               <h2 class="text-[15px] font-semibold text-[#09090B]">能力评估</h2>
               <span class="text-[11px] text-[#A1A1AA] cursor-pointer">查看更多 ></span>
@@ -99,20 +99,29 @@ const reports = [
               <div class="space-y-3">
                 <div class="flex gap-4" >
                   <div class="flex-1 rounded-xl border border-[#F4F4F5] p-3">
-                    <span class="text-[13px] font-medium text-[#09090B] block mb-2">{{ courses[0].title }}</span>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[13px] font-medium text-[#09090B]">{{ courses[0].title }}</span>
+                      <span class="text-[12px] text-[#A1A1AA]">{{ courses[0].progress }}%</span>
+                    </div>
                     <div class="h-1.5 bg-[#F4F4F5] rounded-full overflow-hidden">
                       <div class="h-full bg-[#d4d4d8] rounded-full" :style="{ width: '0%' }" />
                     </div>
                   </div>
                   <div class="flex-1 rounded-xl border border-[#F4F4F5] p-3">
-                    <span class="text-[13px] font-medium text-[#09090B] block mb-2">{{ courses[1].title }}</span>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[13px] font-medium text-[#09090B]">{{ courses[1].title }}</span>
+                      <span class="text-[12px] text-[#A1A1AA]">{{ courses[1].progress }}%</span>
+                    </div>
                     <div class="h-1.5 bg-[#F4F4F5] rounded-full overflow-hidden">
                       <div class="h-full bg-[#18181B] rounded-full" :style="{ width: '50%' }" />
                     </div>
                   </div>
                 </div>
                 <div class="rounded-xl border border-[#F4F4F5] p-3">
-                  <span class="text-[13px] font-medium text-[#09090B] block mb-2">{{ courses[2].title }}</span>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[13px] font-medium text-[#09090B]">{{ courses[2].title }}</span>
+                    <span class="text-[12px] text-[#A1A1AA]">{{ courses[2].progress }}%</span>
+                  </div>
                   <div class="h-1.5 bg-[#F4F4F5] rounded-full overflow-hidden">
                     <div class="h-full bg-[#18181B] rounded-full" :style="{ width: '70%' }" />
                   </div>
