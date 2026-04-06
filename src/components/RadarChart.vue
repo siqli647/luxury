@@ -19,7 +19,7 @@ const props = defineProps({
   },
   data: {
     type: Array,
-    default: () => [72, 65, 80, 58, 75, 70, 62],
+    default: () => [80, 80, 80, 80, 80, 80, 80],
   },
 })
 
