@@ -7,13 +7,13 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const skills = [
-  { name: '产品知识', score: 4, max: 5 },
-  { name: '需求挖掘', score: 4, max: 5 },
-  { name: '沟通表达', score: 4, max: 5 },
-  { name: '异议处理', score: 4, max: 5 },
-  { name: '情绪感知', score: 4, max: 5 },
-  { name: '信任建立', score: 4, max: 5 },
-  { name: '成交推进', score: 4, max: 5 },
+  { name: '产品知识', score: 4.2, max: 5 },
+  { name: '需求挖掘', score: 3.5, max: 5 },
+  { name: '沟通表达', score: 4.0, max: 5 },
+  { name: '异议处理', score: 2.8, max: 5 },
+  { name: '情绪感知', score: 3.7, max: 5 },
+  { name: '信任建立', score: 3.2, max: 5 },
+  { name: '成交推进', score: 3.0, max: 5 },
 ]
 
 const courses = [
