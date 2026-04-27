@@ -49,60 +49,69 @@ const scenes = [
 </script>
 
 <template>
-  <div class="flex h-screen overflow-hidden bg-[#FAFAFA]">
+  <div class="flex h-screen overflow-hidden luxury-shell max-md:h-auto max-md:min-h-screen max-md:flex-col max-md:overflow-visible">
     <SASidebar />
 
-    <main class="flex-1 overflow-y-auto">
-      <div class="max-w-3xl mx-auto px-8 py-8">
+    <main class="flex-1 overflow-y-auto max-md:overflow-visible">
+      <div class="max-w-3xl mx-auto px-8 py-10 max-sm:px-3 max-sm:py-4">
         <!-- Breadcrumb -->
-        <div class="flex items-center gap-1.5 text-[13px] mb-6">
-          <router-link to="/" class="text-[#737373] hover:text-[#525252] transition-colors">首页</router-link>
-          <span class="text-[#0a0a0a]">/</span>
-          <span class="text-[#0a0a0a] font-medium">参数设置</span>
+        <div class="flex items-center gap-2 text-[13px] mb-8" style="color: var(--umber);">
+          <router-link to="/" class="hover:opacity-70 transition-opacity" style="color: var(--umber);">首页</router-link>
+          <span style="color: var(--taupe);">/</span>
+          <span style="color: var(--ink);">参数设置</span>
         </div>
 
-        <h1 class="text-[28px] font-semibold text-[#09090B] mb-1">参数设置</h1>
-        <p class="text-[14px] text-[#71717A] mb-6">设定客户画像、场景目标与教练模式</p>
+        <!-- Title -->
+        <h1 class="luxury-display mb-1 max-sm:text-[26px]" style="font-size: 34px; color: var(--espresso);">参数设置</h1>
+        <p class="luxury-serif italic mb-8" style="font-size: 15px; color: var(--umber);">设定客户画像、场景目标与教练模式</p>
 
         <!-- Tabs -->
-        <div class="flex gap-1 bg-[#F4F4F5] p-1 rounded-lg w-fit mb-6 h-9">
+        <div class="flex w-fit mb-8">
           <button
-            class="px-5 flex items-center rounded-md text-[13px] font-medium bg-white text-[#09090B] shadow-sm transition-all">
+            class="px-6 py-2 text-[13px] tracking-wide border border-[var(--espresso)]"
+            style="background: var(--espresso); color: var(--bone);">
             预设角色
           </button>
           <button
             @click="router.push('/roleplay/custom')"
-            class="px-5 flex items-center rounded-md text-[13px] text-[#71717A] hover:text-[#09090B] transition-all">
+            class="px-6 py-2 text-[13px] tracking-wide border border-[var(--rule-strong)] hover:opacity-80 transition-opacity"
+            style="background: transparent; color: var(--umber);">
             自定义
           </button>
         </div>
 
         <!-- Persona Grid -->
-        <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="grid grid-cols-2 gap-4 mb-8 max-sm:grid-cols-1">
           <div v-for="persona in personas" :key="persona.id"
             @click="selectedPersona = persona.id"
             :class="selectedPersona === persona.id
-              ? 'border-[#18181B] border-2'
-              : 'border-[#E4E4E7] border hover:border-[#a1a1aa]'"
-            class="bg-white rounded-2xl p-5 cursor-pointer transition-all">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-[14px] font-semibold text-[#09090B]">{{ persona.name }}</span>
-              <span class="text-[12px] text-[#A1A1AA]">{{ persona.age }}</span>
+              ? 'border-[2px]'
+              : 'border'"
+            :style="selectedPersona === persona.id
+              ? 'border-color: var(--burgundy); background: rgba(245, 240, 232, 0.66);'
+              : 'border-color: var(--rule-strong); background: rgba(250, 248, 243, 0.82);'"
+            class="p-5 cursor-pointer transition-all luxury-panel"
+            style="box-shadow: 0 22px 55px rgba(61, 46, 31, 0.07);">
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="luxury-display" style="font-size: 18px; color: var(--espresso);">{{ persona.name }}</span>
+              <span class="text-[12px]" style="color: var(--taupe);">{{ persona.age }}</span>
             </div>
-            <p class="text-[12px] text-[#71717A] mb-3 leading-relaxed">{{ persona.desc }}</p>
+            <p class="text-[12px] mb-3 leading-relaxed" style="color: var(--umber);">{{ persona.desc }}</p>
             <div class="flex flex-wrap gap-1.5">
               <span v-for="tag in persona.tags" :key="tag"
-                class="text-[11px] px-2 py-0.5 bg-[#F4F4F5] text-[#71717A] rounded-full">{{ tag }}</span>
+                class="text-[11px] px-2.5 py-0.5 border"
+                style="border-color: var(--rule-strong); color: var(--umber); background: transparent;">{{ tag }}</span>
             </div>
           </div>
         </div>
 
         <!-- Scene select -->
-        <div class="bg-white rounded-2xl p-5 border border-[#E4E4E7] mb-8">
-          <label class="block text-[13px] font-medium text-[#09090B] mb-3">场景 / 目标</label>
+        <div class="luxury-panel p-5 mb-8">
+          <label class="block text-[12px] mb-3" style="color: var(--espresso); letter-spacing: 0.08em;">场景 / 目标</label>
           <select v-model="selectedScene"
-            class="w-full border border-[#e5e5e5] rounded-md bg-[#fafafa] px-4 py-2.5 text-[13px] text-[#71717A] focus:outline-none focus:ring-2 focus:ring-[#18181B] focus:border-transparent appearance-none">
-            <option value="" disabled>选择场景类型</option>
+            class="w-full border px-4 py-2.5 text-[13px] focus:outline-none appearance-none"
+            style="border-color: var(--rule-strong); background: var(--cream); color: var(--ink);">
+            <option value="" disabled style="color: var(--taupe);">选择场景类型</option>
             <option v-for="scene in scenes" :key="scene" :value="scene">{{ scene }}</option>
           </select>
         </div>
@@ -110,8 +119,9 @@ const scenes = [
         <!-- Start button -->
         <div class="flex justify-end">
           <button @click="router.push('/roleplay/chat')"
-            class="bg-[#18181B] text-white px-6 h-11 rounded-lg text-[14px] font-medium hover:bg-[#27272a] transition-colors">
-            开始实战 →
+            class="px-7 py-3 text-[13px] tracking-widest uppercase hover:opacity-90 transition-opacity"
+            style="background: var(--espresso); color: var(--bone);">
+            开始实战
           </button>
         </div>
       </div>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maison L'Art — 奢侈品销售修炼院</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+  :root {
+    --bone:        #FAF8F3;
+    --cream:       #F5F0E8;
+    --parchment:   #EFE7D9;
+    --linen:       #E8DFCD;
+    --stone:       #C8B9A4;
+    --taupe:       #A89584;
+    --umber:       #7A6652;
+    --espresso:    #3D2E1F;
+    --ink:         #2A2218;
+    --burgundy:    #6B3A3A;
+    --rule:        rgba(61, 46, 31, 0.10);
+    --rule-strong: rgba(61, 46, 31, 0.22);
+
+    --display:'DM Serif Display','Cormorant Garamond','Noto Serif SC',serif;
+    --serif:'Cormorant Garamond','Noto Serif SC',serif;
+    --lede:'EB Garamond','Noto Serif SC',serif;
+    --sans:'Inter','Noto Serif SC','PingFang SC',system-ui,sans-serif;
+  }
+
+  *{ box-sizing:border-box; border-radius:0 !important; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{
+    background:var(--bone);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow:hidden;
+    font-size:12px;
+  }
+
+  ::selection{ background:var(--espresso); color:var(--cream); }
+
+  /* ---------- SHELL ---------- */
+  .app{
+    height:100vh;
+    max-height:900px;
+    display:grid;
+    grid-template-columns: 55fr 45fr;
+    grid-template-rows: 1fr 150px;
+    grid-template-areas:
+      "hero dossier"
+      "strip strip";
+    background:var(--bone);
+  }
+
+  /* ======================================================
+     LEFT — MAGAZINE COVER
+     ====================================================== */
+  .hero{
+    grid-area:hero;
+    position:relative;
+    padding:44px 64px 38px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-right:1px solid var(--rule-strong);
+    background:var(--bone);
+    min-width:0;
+  }
+
+  /* Eyebrow at top */
+  .hero .eyebrow{
+    display:flex; align-items:center; gap:14px;
+    font-family:var(--sans);
+    font-size:10px;
+    letter-spacing:.36em;
+    text-transform:uppercase;
+    color:var(--umber);
+    font-weight:400;
+  }
+  .hero .eyebrow .issue{ color:var(--burgundy); }
+  .hero .eyebrow .dot{
+    width:3px; height:3px; background:var(--taupe); display:inline-block;
+  }
+  .hero .eyebrow .brand{
+    font-family:var(--display);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:none;
+    color:var(--espresso);
+    font-weight:400;
+  }
+  .hero .eyebrow .brand em{ font-style:italic; color:var(--burgundy); }
+
+  /* Section label small caps */
+  .hero .section-label{
+    margin-top:22px;
+    font-family:var(--sans);
+    font-size:10px;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    font-weight:400;
+  }
+
+  /* Display headline */
+  .hero .display{
+    font-family:var(--display);
+    font-weight:400;
+    color:var(--espresso);
+    font-size:92px;
+    line-height:.95;
+    letter-spacing:-.005em;
+    margin:14px 0 0;
+  }
+  .hero .display .bonsoir{
+    display:block;
+    font-style:italic;
+    color:var(--espresso);
+  }
+  .hero .display .name{
+    display:block;
+    color:var(--espresso);
+    margin-top:-4px;
+  }
+  .hero .display .name em{
+    font-style:italic;
+    color:var(--burgundy);
+  }
+
+  /* Lede paragraph */
+  .hero .lede{
+    font-family:var(--lede);
+    font-style:italic;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.5;
+    color:var(--umber);
+    margin:28px 0 0;
+    max-width:46ch;
+    letter-spacing:.005em;
+  }
+  .hero .lede .accent{ color:var(--burgundy); font-style:italic; }
+
+  /* CTA stack */
+  .hero .ctas{
+    margin-top:auto;
+    padding-top:28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .hero .cta{
+    display:inline-flex;
+    align-items:baseline;
+    gap:14px;
+    text-decoration:none;
+    color:var(--espresso);
+    font-family:var(--display);
+    font-weight:400;
+    font-size:28px;
+    letter-spacing:.005em;
+    line-height:1;
+    cursor:pointer;
+    transition:color .5s;
+    padding-bottom:2px;
+    width:fit-content;
+  }
+  .hero .cta .zh{ color:var(--espresso); }
+  .hero .cta .dash{
+    font-family:var(--serif);
+    color:var(--taupe);
+    font-size:22px;
+    font-style:italic;
+    font-weight:400;
+    letter-spacing:.05em;
+  }
+  .hero .cta .en{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:22px;
+    color:var(--umber);
+    font-weight:400;
+  }
+  .hero .cta .arrow{
+    display:inline-block;
+    width:42px; height:1px;
+    background:var(--espresso);
+    position:relative;
+    margin-left:6px;
+    transform:translateY(-6px);
+    transition:width .5s, background .5s;
+  }
+  .hero .cta .arrow::after{
+    content:""; position:absolute; right:-1px; top:-4px;
+    width:8px; height:8px;
+    border-right:1px solid var(--espresso);
+    border-top:1px solid var(--espresso);
+    transform:rotate(45deg);
+    transition:border-color .5s;
+  }
+  .hero .cta:hover .zh{ color:var(--burgundy); }
+  .hero .cta:hover .arrow{ width:62px; background:var(--burgundy); }
+  .hero .cta:hover .arrow::after{ border-color:var(--burgundy); }
+  .hero .cta.secondary{
+    font-size:22px;
+  }
+  .hero .cta.secondary .dash,
+  .hero .cta.secondary .en{ font-size:17px; }
+  .hero .cta.secondary .arrow{
+    width:32px;
+    background:var(--umber);
+    transform:translateY(-5px);
+  }
+  .hero .cta.secondary .arrow::after{
+    border-color:var(--umber);
+  }
+
+  /* Bottom-right stat in hero */
+  .hero .footline{
+    position:absolute;
+    right:64px; bottom:38px;
+    text-align:right;
+    font-family:var(--sans);
+    font-size:9.5px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    font-weight:400;
+    line-height:1.7;
+  }
+  .hero .footline b{
+    font-family:var(--display);
+    font-size:13px;
+    color:var(--espresso);
+    font-weight:400;
+    letter-spacing:.02em;
+    margin-right:4px;
+  }
+
+  /* ======================================================
+     RIGHT — DOSSIER
+     ====================================================== */
+  .dossier{
+    grid-area:dossier;
+    background:var(--cream);
+    padding:28px 36px 28px;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+  }
+
+  .dossier .module{
+    padding:14px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .dossier .module:first-child{ padding-top:4px; }
+  .dossier .module:last-child{ border-bottom:0; padding-bottom:0; }
+
+  .dossier .mhead{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:10px; gap:12px;
+  }
+  .dossier .mhead .num{
+    font-family:var(--sans);
+    font-size:9px; letter-spacing:.34em; color:var(--burgundy);
+    text-transform:uppercase; font-weight:400;
+  }
+  .dossier .mhead h3{
+    font-family:var(--display);
+    font-weight:400; font-size:15px; line-height:1;
+    margin:2px 0 0; color:var(--espresso);
+    letter-spacing:.005em;
+  }
+  .dossier .mhead .meta{
+    font-size:9px; letter-spacing:.28em; color:var(--taupe); text-transform:uppercase;
+  }
+
+  /* --- Top strip: avatar + name + level --- */
+  .idstrip{
+    display:flex; align-items:center; gap:16px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--rule-strong);
+  }
+  .idstrip .mono{
+    width:44px; height:44px;
+    border:1px solid var(--rule-strong);
+    background:var(--parchment);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--display);
+    color:var(--espresso);
+    font-size:13px; letter-spacing:.1em;
+    font-weight:400;
+    flex-shrink:0;
+  }
+  .idstrip .who{
+    display:flex; flex-direction:column; gap:3px;
+    flex:1; min-width:0;
+  }
+  .idstrip .who .n{
+    font-family:var(--display);
+    font-size:17px;
+    color:var(--espresso);
+    font-weight:400;
+    line-height:1;
+    letter-spacing:.01em;
+  }
+  .idstrip .who .n em{ font-style:italic; color:var(--burgundy); }
+  .idstrip .who .cap{
+    font-family:var(--sans);
+    font-size:9.5px;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--umber);
+    font-weight:400;
+  }
+  .idstrip .who .cap span{ color:var(--taupe); }
+  .idstrip .ident{
+    font-family:var(--sans);
+    font-size:8.5px;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    text-align:right;
+    line-height:1.6;
+    font-weight:400;
+  }
+  .idstrip .ident b{
+    font-family:var(--display);
+    font-size:12px; color:var(--espresso); font-weight:400;
+    letter-spacing:.02em;
+  }
+
+  /* --- Radar --- */
+  .dossier .radar-block{
+    padding:10px 0 12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .radar-wrap{
+    position:relative;
+    width:100%;
+    height:200px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .radar-wrap canvas{ max-height:100% !important; max-width:100% !important; }
+
+  /* --- Skill bars --- */
+  .bars-block{
+    padding:12px 0 12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .bars{
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .bar{
+    display:grid; grid-template-columns:1fr auto; gap:4px; align-items:end;
+    padding-bottom:4px;
+  }
+  .bar .name{
+    font-size:10.5px; color:var(--espresso); font-weight:400; line-height:1.2;
+  }
+  .bar .name small{
+    display:inline-block; font-size:8px; letter-spacing:.2em;
+    color:var(--taupe); text-transform:uppercase; margin-left:5px; font-weight:300;
+  }
+  .bar .score{
+    font-family:var(--display); font-size:12px; color:var(--espresso);
+    line-height:1; letter-spacing:.01em; font-weight:400;
+  }
+  .bar .score span{
+    color:var(--taupe); font-size:8px; margin-left:1px;
+    font-family:var(--sans); font-weight:300;
+  }
+  .bar .track{
+    grid-column:1/-1; height:1px; background:var(--rule);
+    position:relative; overflow:hidden; margin-top:2px;
+  }
+  .bar .track::after{
+    content:""; position:absolute; left:0; top:0; height:100%;
+    background:var(--espresso); width:var(--w,50%);
+  }
+
+  /* --- Latest report dossier card --- */
+  .latest-block{
+    padding:12px 0 4px;
+  }
+  .dossier-card{
+    background:var(--bone);
+    border:1px solid var(--rule-strong);
+    padding:14px 16px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:14px;
+    align-items:center;
+    cursor:pointer;
+    transition:border-color .5s, background .5s;
+  }
+  .dossier-card:hover{
+    border-color:var(--espresso);
+    background:var(--parchment);
+  }
+  .dossier-card .date{
+    font-size:8.5px; letter-spacing:.32em; color:var(--burgundy);
+    text-transform:uppercase; margin-bottom:6px; font-weight:400;
+  }
+  .dossier-card h4{
+    font-family:var(--display); font-weight:400; font-size:16px;
+    line-height:1.1; margin:0 0 6px; color:var(--espresso);
+  }
+  .dossier-card h4 em{ font-style:italic; color:var(--burgundy); }
+  .dossier-card p{
+    font-family:var(--lede); font-style:italic;
+    font-size:12px; color:var(--umber); line-height:1.5;
+    margin:0 0 6px; font-weight:400; max-width:40ch;
+  }
+  .dossier-card .chips{ display:flex; gap:5px; flex-wrap:wrap; }
+  .dossier-card .chip{
+    font-size:7.5px; letter-spacing:.24em; color:var(--umber);
+    text-transform:uppercase; padding:2px 6px;
+    border:1px solid var(--rule-strong); font-weight:400;
+  }
+  .dossier-card .score{
+    position:relative; width:64px; height:64px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dossier-card .score svg{ position:absolute; inset:0; transform:rotate(-90deg); }
+  .dossier-card .score .v{
+    font-family:var(--display); font-size:24px; color:var(--espresso);
+    line-height:1; letter-spacing:.01em; position:relative; z-index:2; font-weight:400;
+  }
+  .dossier-card .score .v small{
+    font-family:var(--sans); font-size:8.5px; color:var(--taupe);
+    margin-left:1px; font-weight:300;
+  }
+
+  /* ======================================================
+     BOTTOM — FILM STRIP
+     ====================================================== */
+  .strip{
+    grid-area:strip;
+    border-top:1px solid var(--rule-strong);
+    background:var(--bone);
+    padding:16px 64px 16px 64px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:0;
+    min-height:0;
+  }
+  .strip .cell{
+    padding:6px 22px;
+    border-right:1px solid var(--rule);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-width:0;
+    cursor:pointer;
+    transition:background .5s;
+  }
+  .strip .cell:first-child{ padding-left:0; }
+  .strip .cell:last-child{ border-right:0; padding-right:0; }
+  .strip .cell:hover{ background:var(--cream); }
+
+  .strip .cell .cnum{
+    font-family:var(--sans);
+    font-size:8.5px; letter-spacing:.34em; color:var(--burgundy);
+    text-transform:uppercase; font-weight:400;
+  }
+  .strip .cell h5{
+    font-family:var(--display);
+    font-weight:400; font-size:17px; line-height:1.1;
+    margin:4px 0 2px; color:var(--espresso);
+  }
+  .strip .cell .sub{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:11px; color:var(--umber);
+    margin:0; font-weight:400;
+    letter-spacing:.02em;
+  }
+  .strip .cell .foot{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-top:10px; gap:8px;
+  }
+  .strip .cell .foot .pct{
+    font-family:var(--display); font-size:18px;
+    color:var(--espresso); font-weight:400; line-height:1;
+  }
+  .strip .cell .foot .pct span{
+    font-family:var(--sans); font-size:9px;
+    color:var(--taupe); margin-left:1px; font-weight:300;
+  }
+  .strip .cell .foot .lbl{
+    font-size:8.5px; letter-spacing:.28em;
+    text-transform:uppercase; color:var(--taupe); font-weight:300;
+  }
+  .strip .cell .track{
+    height:1px; background:var(--rule);
+    position:relative; overflow:hidden; margin-top:6px;
+  }
+  .strip .cell .track::after{
+    content:""; position:absolute; left:0; top:0; height:100%;
+    background:var(--espresso); width:var(--w,0%);
+  }
+
+  /* Report cell on far right — differentiated look */
+  .strip .cell.report-cell{
+    background:var(--cream);
+    padding:8px 22px;
+  }
+  .strip .cell.report-cell .cnum{ color:var(--burgundy); }
+  .strip .cell.report-cell .row{
+    display:flex; align-items:center; gap:12px;
+    margin-top:6px;
+  }
+  .strip .cell.report-cell .sv{
+    font-family:var(--display); font-size:26px;
+    color:var(--espresso); font-weight:400; line-height:1;
+    letter-spacing:.01em;
+  }
+  .strip .cell.report-cell .sv small{
+    font-family:var(--sans); font-size:9px; color:var(--taupe);
+    margin-left:2px; font-weight:300;
+  }
+  .strip .cell.report-cell .hline{
+    flex:1; height:1px; background:var(--rule-strong);
+  }
+  .strip .cell.report-cell .date-tag{
+    font-size:8.5px; letter-spacing:.32em; color:var(--umber);
+    text-transform:uppercase; font-weight:400;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- =================== LEFT: MAGAZINE COVER =================== -->
+  <section class="hero">
+
+    <!-- eyebrow -->
+    <div class="eyebrow">
+      <span class="issue">N° 07</span>
+      <span class="dot"></span>
+      <span>奢侈销售训练</span>
+      <span class="dot"></span>
+      <span>APR · 2026</span>
+      <span class="dot"></span>
+      <span class="brand">MAISON <em>L'ART</em></span>
+    </div>
+
+    <!-- display -->
+    <div>
+      <div class="section-label">Chapter · 今日修习</div>
+      <h1 class="display">
+        <span class="bonsoir">Bonsoir,</span>
+        <span class="name"><em>张敏</em></span>
+      </h1>
+
+      <p class="lede">
+        本日建议：巩固<span class="accent">「异议处理」</span>与<span class="accent">「信任建立」</span>两项。距离下一次晋级还有 3 个完整训练循环——今晚的一场对谈，足以拨动方向。
+      </p>
+    </div>
+
+    <!-- CTAs -->
+    <div class="ctas">
+      <a class="cta" href="#">
+        <span class="zh">实战模拟</span>
+        <span class="dash">——</span>
+        <span class="en">Enter Simulation</span>
+        <span class="arrow"></span>
+      </a>
+      <a class="cta secondary" href="#">
+        <span class="zh">教学模块</span>
+        <span class="dash">——</span>
+        <span class="en">Personalized Learning</span>
+        <span class="arrow"></span>
+      </a>
+    </div>
+
+    <!-- footline stat -->
+    <div class="footline">
+      <div><b>472</b>天 修习</div>
+      <div><b>A+</b>段位 · <b>26</b>场 本月</div>
+    </div>
+  </section>
+
+  <!-- =================== RIGHT: DOSSIER =================== -->
+  <aside class="dossier">
+
+    <!-- 1. ID strip -->
+    <div class="idstrip">
+      <span class="mono">ZM</span>
+      <div class="who">
+        <div class="n">欢迎归来，<em>张敏</em></div>
+        <div class="cap">Level II <span>·</span> 12 Sessions <span>·</span> Atelier Tokyo</div>
+      </div>
+      <div class="ident">
+        <div>Dossier</div>
+        <b>№ 0472</b>
+      </div>
+    </div>
+
+    <!-- 2. Radar -->
+    <div class="module radar-block">
+      <div class="mhead">
+        <div>
+          <div class="num">II — Évaluation</div>
+          <h3>七艺之考</h3>
+        </div>
+        <div class="meta">七维造诣</div>
+      </div>
+      <div class="radar-wrap">
+        <canvas id="radar"></canvas>
+      </div>
+    </div>
+
+    <!-- 3. Skill bars -->
+    <div class="module bars-block">
+      <div class="mhead">
+        <div>
+          <div class="num">III — Compétences</div>
+          <h3>技艺七重</h3>
+        </div>
+        <div class="meta">本月更新</div>
+      </div>
+      <div class="bars">
+        <div class="bar" style="--w:84%">
+          <div class="name">产品知识 <small>Product Knowledge</small></div>
+          <div class="score">4.2<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:70%">
+          <div class="name">需求挖掘 <small>Client Discovery</small></div>
+          <div class="score">3.5<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:78%">
+          <div class="name">沟通表达 <small>Conversational Grace</small></div>
+          <div class="score">3.9<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:64%">
+          <div class="name">异议处理 <small>Objection Handling</small></div>
+          <div class="score">3.2<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:88%">
+          <div class="name">情绪感知 <small>Emotional Attunement</small></div>
+          <div class="score">4.4<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:74%">
+          <div class="name">信任建立 <small>Trust &amp; Rapport</small></div>
+          <div class="score">3.7<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+        <div class="bar" style="--w:68%">
+          <div class="name">成交推进 <small>Closing</small></div>
+          <div class="score">3.4<span>/5</span></div>
+          <div class="track"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Latest report -->
+    <div class="module latest-block">
+      <div class="mhead">
+        <div>
+          <div class="num">IV — Dernier Rapport</div>
+          <h3>近日卷宗</h3>
+        </div>
+        <div class="meta">最近一场</div>
+      </div>
+      <article class="dossier-card">
+        <div>
+          <div class="date">2026 · 04 · 01</div>
+          <h4>高端贵妇 <em>/ 周年礼物选购</em></h4>
+          <p>银发女士，为银婚纪念踌躇于两款手袋之间——她寻找的并非皮具，而是被看见的瞬间。</p>
+          <div class="chips">
+            <span class="chip">情绪 ★★★★★</span>
+            <span class="chip">产品 ★★★★</span>
+            <span class="chip">成交 ★★★</span>
+          </div>
+        </div>
+        <div class="score">
+          <svg viewBox="0 0 124 124">
+            <circle cx="62" cy="62" r="54" fill="none" stroke="rgba(61,46,31,0.12)" stroke-width="2"/>
+            <circle cx="62" cy="62" r="54" fill="none" stroke="#6B3A3A" stroke-width="2"
+                    stroke-dasharray="339.3" stroke-dashoffset="74.6"/>
+          </svg>
+          <span class="v">78</span>
+        </div>
+      </article>
+    </div>
+
+  </aside>
+
+  <!-- =================== BOTTOM: FILM STRIP =================== -->
+  <footer class="strip">
+
+    <div class="cell" style="--w:0%">
+      <div>
+        <div class="cnum">N° 01 · Initié</div>
+        <h5>破冰与信任建立</h5>
+        <p class="sub">Ice-Breaking &amp; Trust</p>
+      </div>
+      <div>
+        <div class="foot">
+          <span class="pct">0<span>%</span></span>
+          <span class="lbl">尚未启读</span>
+        </div>
+        <div class="track"></div>
+      </div>
+    </div>
+
+    <div class="cell" style="--w:50%">
+      <div>
+        <div class="cnum">N° 02 · Avancé</div>
+        <h5>异议处理 · 价值重构</h5>
+        <p class="sub">Objection &amp; Value</p>
+      </div>
+      <div>
+        <div class="foot">
+          <span class="pct">50<span>%</span></span>
+          <span class="lbl">修习中</span>
+        </div>
+        <div class="track"></div>
+      </div>
+    </div>
+
+    <div class="cell" style="--w:70%">
+      <div>
+        <div class="cnum">N° 03 · Classique</div>
+        <h5>产品知识 · 经典系列</h5>
+        <p class="sub">The Classics</p>
+      </div>
+      <div>
+        <div class="foot">
+          <span class="pct">70<span>%</span></span>
+          <span class="lbl">将近完成</span>
+        </div>
+        <div class="track"></div>
+      </div>
+    </div>
+
+    <!-- older archive report -->
+    <div class="cell report-cell">
+      <div>
+        <div class="cnum">Archives · N° 46</div>
+        <h5>年轻买家 / 首次体验</h5>
+        <p class="sub">Sci-tech client, 29</p>
+      </div>
+      <div class="row">
+        <span class="sv">82<small>/100</small></span>
+        <span class="hline"></span>
+        <span class="date-tag">03 · 28</span>
+      </div>
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    const ctx = document.getElementById('radar').getContext('2d');
+    new Chart(ctx,{
+      type:'radar',
+      data:{
+        labels:['产品知识','需求挖掘','沟通表达','异议处理','情绪感知','信任建立','成交推进'],
+        datasets:[{
+          data:[4.2,3.5,3.9,3.2,4.4,3.7,3.4],
+          borderColor:'rgba(61,46,31,0.75)',
+          borderWidth:1.1,
+          backgroundColor:'rgba(107,58,58,0.06)',
+          pointRadius:2,
+          pointBackgroundColor:'#3D2E1F',
+          pointBorderColor:'#3D2E1F',
+          pointBorderWidth:1,
+          pointHoverRadius:3.5,
+          pointStyle:'rect',
+          tension:0
+        }]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        animation:{duration:1200, easing:'easeOutQuart'},
+        plugins:{
+          legend:{display:false},
+          tooltip:{
+            backgroundColor:'#3D2E1F',
+            borderColor:'rgba(122,102,82,0.6)',
+            borderWidth:1,
+            titleColor:'#C8B9A4',
+            bodyColor:'#FAF8F3',
+            titleFont:{family:'Inter, Noto Serif SC, sans-serif', size:11, weight:'400'},
+            bodyFont:{family:'Inter, Noto Serif SC, sans-serif', size:10, weight:'300'},
+            padding:10,
+            displayColors:false,
+            cornerRadius:0,
+            callbacks:{ label:c=>` ${c.formattedValue} / 5` }
+          }
+        },
+        scales:{
+          r:{
+            min:0, max:5,
+            ticks:{display:false, stepSize:1},
+            grid:{color:'rgba(61,46,31,0.08)', lineWidth:1},
+            angleLines:{color:'rgba(61,46,31,0.10)', lineWidth:1},
+            pointLabels:{
+              color:'#7A6652',
+              font:{family:'Inter, Noto Serif SC, sans-serif', size:9, weight:'400'},
+              padding:6
+            }
+          }
+        }
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

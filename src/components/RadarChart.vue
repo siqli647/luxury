@@ -29,11 +29,12 @@ const chartData = {
     {
       label: '能力评估',
       data: props.data,
-      backgroundColor: 'rgba(0, 0, 0, 0.08)',
-      borderColor: 'rgba(0, 0, 0, 0.8)',
-      borderWidth: 2,
-      pointBackgroundColor: 'rgba(0, 0, 0, 0.8)',
-      pointRadius: 3,
+      backgroundColor: 'rgba(107, 58, 58, 0.06)',
+      borderColor: 'rgba(61, 46, 31, 0.78)',
+      borderWidth: 1.2,
+      pointBackgroundColor: '#3D2E1F',
+      pointBorderColor: '#3D2E1F',
+      pointRadius: 2,
     },
   ],
 }
@@ -54,14 +55,14 @@ const chartOptions = {
         stepSize: 20,
       },
       pointLabels: {
-        font: { size: 11 },
-        color: '#374151',
+        font: { size: 10 },
+        color: '#7A6652',
       },
       grid: {
-        color: 'rgba(0,0,0,0.08)',
+        color: 'rgba(61,46,31,0.08)',
       },
       angleLines: {
-        color: 'rgba(0,0,0,0.08)',
+        color: 'rgba(61,46,31,0.10)',
       },
     },
   },

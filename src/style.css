@@ -1,1 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
+
+:root {
+  --bone: #faf8f3;
+  --cream: #f5f0e8;
+  --parchment: #efe7d9;
+  --linen: #e8dfcd;
+  --stone: #c8b9a4;
+  --taupe: #a89584;
+  --umber: #7a6652;
+  --espresso: #3d2e1f;
+  --ink: #2a2218;
+  --burgundy: #6b3a3a;
+  --moss: #536348;
+  --gold: #b18a4a;
+  --rule: rgba(61, 46, 31, 0.1);
+  --rule-strong: rgba(61, 46, 31, 0.22);
+  --display: 'DM Serif Display', 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --sans: 'Inter', 'Noto Serif SC', 'PingFang SC', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse 120% 80% at 10% 0%, rgba(239,231,217,0.7) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 90% at 90% 10%, rgba(245,240,232,0.6) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(232,223,205,0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(200,185,164,0.15) 0%, transparent 40%),
+    var(--bone);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--sans);
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--espresso);
+  color: var(--cream);
+}
+
+.luxury-shell {
+  background:
+    linear-gradient(90deg, rgba(61, 46, 31, 0.025) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(61, 46, 31, 0.025) 1px, transparent 1px),
+    radial-gradient(ellipse 120% 80% at 10% 0%, rgba(239,231,217,0.65) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 90% at 90% 10%, rgba(245,240,232,0.55) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(232,223,205,0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(200,185,164,0.12) 0%, transparent 40%),
+    var(--bone);
+  background-size: 48px 48px, 48px 48px, auto, auto, auto, auto, auto;
+}
+
+.luxury-panel {
+  border: 1px solid var(--rule-strong);
+  background: rgba(250, 248, 243, 0.82);
+  box-shadow: 0 22px 55px rgba(61, 46, 31, 0.07);
+}
+
+.luxury-card {
+  border: 1px solid var(--rule);
+  background: rgba(245, 240, 232, 0.66);
+}
+
+.luxury-display {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.luxury-serif {
+  font-family: var(--serif);
+}
+
+.luxury-eyebrow {
+  color: var(--burgundy);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.luxury-rule {
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+.motion-icon {
+  transform-origin: center;
+  animation: luxury-float 4.8s ease-in-out infinite;
+}
+
+.motion-icon-slow {
+  transform-origin: center;
+  animation: luxury-pulse 5.6s ease-in-out infinite;
+}
+
+.reveal-up {
+  animation: reveal-up 520ms ease both;
+}
+
+.reveal-up-delay {
+  animation: reveal-up 650ms ease 90ms both;
+}
+
+@keyframes luxury-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-2deg);
+  }
+}
+
+@keyframes luxury-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
